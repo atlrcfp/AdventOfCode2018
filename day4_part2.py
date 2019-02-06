@@ -31,6 +31,7 @@ for item in sorted_list:
             guard_dictionary[current_guard]["min{0}".format(minute)] += 1 #increment that minute asleep    
 
 total_mins = {}
+most_often_min = {}
 
 for guardID in guard_dictionary:
     guard_dictionary[guardID]["total"] = 0
@@ -41,8 +42,14 @@ for guardID in guard_dictionary:
             guard_dictionary[guardID]["total"] = guard_dictionary[guardID]["total"] + guard_dictionary[guardID][minute]
             
     total_mins[guardID] = guard_dictionary[guardID]["total"]
+    most_often_min[guardID] = guard_dictionary[guardID][guard_dictionary[guardID]["best_min"]]
     
 most_sleepy_guard = max(total_mins, key = total_mins.get)
+most_reliable_guard = max(most_often_min, key = most_often_min.get)
+
 print("The most sleepy guard is", most_sleepy_guard, "with a total of ", guard_dictionary[most_sleepy_guard]["total"], "minutes asleep.")
 print("Guard", most_sleepy_guard, "slept most at time: 00:", guard_dictionary[most_sleepy_guard]["best_min"][3:])
-print(int(most_sleepy_guard)*int(guard_dictionary[most_sleepy_guard]["best_min"][3:]))
+print("Therefore,", int(most_sleepy_guard)*int(guard_dictionary[most_sleepy_guard]["best_min"][3:]))
+
+print("Guard", most_reliable_guard, "is the most consistent, most often sleeping in minute,", guard_dictionary[most_reliable_guard]["best_min"][-2:])
+print("Therefore,", int(most_reliable_guard)*int(guard_dictionary[most_reliable_guard]["best_min"][-2:]))
