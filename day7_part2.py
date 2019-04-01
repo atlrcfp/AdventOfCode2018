@@ -9,9 +9,25 @@ class worker:
     def __init__(self):
         self.job = ""
         self.busy = False
-        self.remaing_duration = 0
+        self.remaining_time = 0
         
         
     def take_job(self, task):
         self.job = task
-        self.remaing_duration = 60 + ord(task) - 64
+        self.remaining_time = 60 + ord(task) - 64
+        
+    def update(self):
+        if self.remaining_time > 0:
+            self.remaining_time = self.remaining_time - 1
+            
+        
+worker_a = worker()
+worker_b = worker()
+worker_c = worker()
+worker_d = worker()
+worker_e = worker()
+
+worker_a.take_job("X")
+
+print(worker_a.job)
+print(worker_a.remaining_duration)
